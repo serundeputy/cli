@@ -8,6 +8,9 @@ All notable changes to this project starting with the 0.6.0 release will be docu
 - New command `workflows logs` displays operation logs for workflow (#708)
 - Added initiator data (manual or automated) to `site backups list`. (#716)
 
+### Changed
+- Drush and WP-CLI commands routed through Terminus must now make use of quotes to pass the command and arguments. (#702)
+
 ### Fixed
 - `site backups get` no longer errs when there are no backups. (#690)
 - Interactive commands' environment menus now consistently include multidev environments, where applicable. (#701)
