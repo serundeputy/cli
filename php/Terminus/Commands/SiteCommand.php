@@ -30,8 +30,8 @@ class SiteCommand extends TerminusCommand {
    *
    * ## OPTIONS
    *
-   * <get|load|create|list>
-   * : Function to run - get, load, create, or list
+   * <get|load|create|list|get-schedule|set-schedule>
+   * : Function to run - get, load, create, list, get schedule, or set schedule
    *
    * [--site=<site>]
    * : Site to load
@@ -61,6 +61,9 @@ class SiteCommand extends TerminusCommand {
     $action = array_shift($args);
 
     switch ($action) {
+      case 'get-schedule':
+        $this->showBackupSchedule($assoc_args);  
+          break;
       case 'get':
         $url = $this->getBackup($assoc_args);
         $this->output()->outputValue($url, 'Backup URL');
@@ -1988,6 +1991,21 @@ class SiteCommand extends TerminusCommand {
       array('target' => $target, 'db' => $database)
     );
     return true;
+  }
+
+  /**
+   * Displays an environment's regular backup schedule
+   *
+   * @params [array] $assoc_args Parameters and flags from the command line
+   * @return [void]
+   */
+  private function showBackupSchedule($assoc_args) {
+    $site     = $this->sites->get(Input::sitename($assoc_args));
+    $env      = $site->environments->get(
+      Input::env(array('args' => $assoc_args, 'site' => $site))
+    );
+    $schedule = $env->backups->getBackupSchedule();
+    var_dump($schedule);
   }
 
 }

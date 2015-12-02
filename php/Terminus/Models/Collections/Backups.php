@@ -77,6 +77,25 @@ class Backups extends TerminusCollection {
   }
 
   /**
+   * Retrieves an environment's regular backup schedule
+   *
+   * @return [array] $schedule Elements as follows:
+   *         [boolean] daily_enabled
+   *         [string]  daily_backup_time
+   *         [boolean] weekly_enabled
+   *         [string]  weekly_backup_day
+   */
+  public function getBackupSchedule() {
+    $schedule = array(
+      'daily_enabled'     => false,
+      'daily_backup_time' => null,
+      'weelky_enabled'    => false,
+      'weekly_backup_day' => null,
+    );
+    return $schedule;
+  }
+
+  /**
    * Lists all backups
    *
    * @param [string] $element Name of the element type to filter by
